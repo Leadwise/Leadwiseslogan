@@ -1,0 +1,16 @@
+{
+  "name": "glorious-leader",
+  "globalDependencies": {
+    "bunnymq": "registry:dt/bunnymq#2.2.1+20161005184000",
+    "node": "registry:env/node#6.0.0+20161105011511",
+    "pg-promise": "registry:dt/pg-promise#0.0.0+20160510002910",
+    "when": "registry:dt/when#2.4.0+20161119044246"
+  },
+  "dependencies": {
+    "Rx": "file:./node_modules/rxjs/Rx.d.ts",
+    "amqplib": "registry:npm/amqplib#0.4.1+20160726143451",
+    "dotenv": "registry:dt/dotenv#2.0.0+20161103000434",
+    "lodash": "registry:npm/lodash#4.0.0+20161015015725",
+    "winston": "registry:dt/winston#0.0.0+20161122193333"
+  }
+}

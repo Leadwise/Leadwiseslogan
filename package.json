@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "tsc",
-    "postinstall": "typings install",
+    "postinstall": "typings install && tsc",
     "worker": "npm run build && node dist/worker.js",
     "dev-rabbit-setup": "docker run -d --hostname gleader-rabbit --name gleader-rabbit -p 15672:15672 -p 5672:5672 rabbitmq:management",
     "dev-postgres-setup": "docker run -it --rm --link some-postgres:postgres postgres psql -h postgres -U postgres",

@@ -31,6 +31,16 @@ export async function startWebServer(dbOpen: ConnectionFactory, port: number = 8
       dbConnection.done();
     }
   }
+  
+  function getBackground(key: string) {
+    let hash = (
+      parseInt(key.substr(0, 2), 16)
+      + 7 * parseInt(key.substr(2, 2), 16)
+      + 11 * parseInt(key.substr(4, 2), 16)
+    ) % backgrounds.length;
+
+    return backgrounds[hash];
+  }
 
   logger.info('Using following directories', { viewsDir, assetsDir });
 
@@ -66,7 +76,7 @@ export async function startWebServer(dbOpen: ConnectionFactory, port: number = 8
     return res.render("index", {
       sloganKey: slogan.key,
       slogan: slogan.text,
-      bg: sample(backgrounds)
+      bg: getBackground(slogan.key)
     });
   });
 
@@ -90,7 +100,7 @@ export async function startWebServer(dbOpen: ConnectionFactory, port: number = 8
     return res.render("index", {
       sloganKey: slogan.key,
       slogan: slogan.text,
-      bg: sample(backgrounds)
+      bg: getBackground(slogan.key)
     });
   });
 

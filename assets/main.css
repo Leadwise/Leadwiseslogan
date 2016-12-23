@@ -15,6 +15,28 @@ div.background {
     z-index: -1;
 }
 
+blockquote {
+    color: rgb(252, 156, 151);
+}
+
+blockquote header {
+    width: 100%;
+    text-align: right;
+}
+
+blockquote header a {
+    padding-left: 10px;
+    color: rgb(252, 156, 151);
+}
+
+blockquote header a:first-child {
+    padding-left: 0px;
+}
+
+blockquote header a:hover {
+    color: rgb(202, 106, 101);
+}
+
 blockquote.slogan {
     float: right;
     margin-right: 15%;
@@ -22,7 +44,6 @@ blockquote.slogan {
     min-width: 20%;
     max-width: 45%;
     background-color: rgb(170, 52, 46);
-    color: rgb(252, 156, 151);
 }
 
 blockquote footer {

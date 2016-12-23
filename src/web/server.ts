@@ -18,6 +18,20 @@ import { setupDatabase, ConnectionFactory } from '../common/database';
 const fsReadDir = Observable.bindNodeCallback<string, string[]>(fs.readdir);
 
 export async function startWebServer(dbOpen: ConnectionFactory, port: number = 80) {
+  async function getSlogan(key?: string) {
+    logger.info('Opening database connection');
+    let dbConnection = await dbOpen();
+    try {
+      return (!!key)
+        ? await dbConnection.oneOrNone('SELECT key, text FROM slogans WHERE key = $1', [key])
+        : await dbConnection.oneOrNone('SELECT key, text FROM slogans OFFSET floor( random() * (SELECT COUNT(*) FROM slogans)) LIMIT 1');
+    }
+    finally{
+      logger.info('Closing database connection');
+      dbConnection.done();
+    }
+  }
+
   logger.info('Using following directories', { viewsDir, assetsDir });
 
   app.engine('mustache', mustacheExpress());
@@ -43,21 +57,17 @@ export async function startWebServer(dbOpen: ConnectionFactory, port: number = 8
   logger.info(`Found ${backgrounds.length} avaliable backgrounds`);
 
   app.get('/slogan', async (req: express.Request, res: express.Response) => {
-    let dbConnection = await dbOpen();
-    try {
-      let keyRow = await dbConnection.oneOrNone(
-        'SELECT key FROM slogans OFFSET floor( random() * (SELECT COUNT(*) FROM slogans)) LIMIT 1'
-      );
-      if (!keyRow) {
+    let slogan = await getSlogan();
+    if (!slogan) {
         res.writeHead(404, `Not Found: No slogans avaliable`);
         return res.end();
-      }
-
-      res.redirect(`/slogan/${keyRow.key}`);
-      return res.end();
-    } finally {
-      dbConnection.done();
     }
+
+    return res.render("index", {
+      sloganKey: slogan.key,
+      slogan: slogan.text,
+      bg: sample(backgrounds)
+    });
   });
 
   app.get('/slogan/:sloganId', async (req: express.Request, res: express.Response) => {
@@ -71,22 +81,17 @@ export async function startWebServer(dbOpen: ConnectionFactory, port: number = 8
       return res.end();
     }
 
-    let dbConnection = await dbOpen();
-    try {
-      let sloganRow = await dbConnection.oneOrNone('SELECT key, text FROM slogans WHERE key = $1', [sloganId]);
-      if (!sloganRow) {
-        res.writeHead(404, `Not Found: Could not find slogan with id ${sloganId}`);
-        return res.end();
-      }
-
-      return res.render("index", {
-        sloganKey: sloganRow.key,
-        slogan: sloganRow.text,
-        bg: sample(backgrounds)
-      });
-    } finally {
-      dbConnection.done();
+    let slogan = await getSlogan(sloganId);
+    if (!slogan) {
+      res.writeHead(404, `Not Found: Could not find slogan with id ${sloganId}`);
+      return res.end();
     }
+
+    return res.render("index", {
+      sloganKey: slogan.key,
+      slogan: slogan.text,
+      bg: sample(backgrounds)
+    });
   });
 
   return new Promise<void>((resolve, reject) => {

@@ -1,21 +1,28 @@
-body {
+html, body {
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-size: 14px;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
 }
 
-div.background {
+.background {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
+    width: 100vw;
+    height: 100vh;
     opacity: 0.6;
-    background-size: 100%;
+    background-size: cover;
     background-repeat: no-repeat;
     z-index: -1;
 }
 
 blockquote {
+    opacity: 0.87;
     color: rgb(252, 156, 151);
 }
 
@@ -38,11 +45,7 @@ blockquote header a:hover {
 }
 
 blockquote.slogan {
-    float: right;
-    margin-right: 15%;
     padding: 15px;
-    min-width: 20%;
-    max-width: 45%;
     background-color: rgb(170, 52, 46);
 }
 
@@ -50,6 +53,24 @@ blockquote.slogan p:first-letter {
     text-transform: capitalize;
 }
 
+blockquote footer::before {
+    content: '-';
+}
 blockquote footer {
-    float: right;
+    width: 100%;
+    text-align: right;
+}
+
+@media only screen and (min-width: 481px) {
+    blockquote.slogan {
+        float: right;
+        margin-right: 15%;
+        min-width: 20%;
+        max-width: 45%;
+    }
+}
+@media only screen and (max-width: 480px) {
+    blockquote.slogan {
+        margin: 0px;
+    }
 }

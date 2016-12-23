@@ -46,6 +46,10 @@ blockquote.slogan {
     background-color: rgb(170, 52, 46);
 }
 
+blockquote.slogan p:first-letter {
+    text-transform: capitalize;
+}
+
 blockquote footer {
     float: right;
 }

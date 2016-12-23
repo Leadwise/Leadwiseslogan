@@ -72,12 +72,8 @@ export async function startWebServer(dbOpen: ConnectionFactory, port: number = 8
         res.writeHead(404, `Not Found: No slogans avaliable`);
         return res.end();
     }
-
-    return res.render("index", {
-      sloganKey: slogan.key,
-      slogan: slogan.text,
-      bg: getBackground(slogan.key)
-    });
+    
+    return res.redirect(`/slogan/${slogan.key}`, 303);
   });
 
   app.get('/slogan/:sloganId', async (req: express.Request, res: express.Response) => {

@@ -96,7 +96,8 @@ export async function startWebServer(dbOpen: ConnectionFactory, port: number = 8
     return res.render("index", {
       sloganKey: slogan.key,
       slogan: slogan.text,
-      bg: getBackground(slogan.key)
+      bg: getBackground(slogan.key),
+      baseUrl: 'http://new-glorious-leader.herokuapp.com'
     });
   });
 

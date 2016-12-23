@@ -10,6 +10,7 @@
     "Rx": "file:./node_modules/rxjs/Rx.d.ts",
     "amqplib": "registry:npm/amqplib#0.4.1+20160726143451",
     "dotenv": "registry:dt/dotenv#2.0.0+20161103000434",
+    "express": "registry:npm/express#4.14.0+20160925001530",
     "lodash": "registry:npm/lodash#4.0.0+20161015015725",
     "winston": "registry:dt/winston#0.0.0+20161122193333"
   }

@@ -1,6 +1,6 @@
 import * as pgpromise from 'pg-promise';
 
-import createLogger from '../common/logging';
+import createLogger from './logging';
 
 const logger = createLogger('parsist', 'database');
 const createDb = pgpromise();

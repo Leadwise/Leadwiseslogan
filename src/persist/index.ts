@@ -1,7 +1,7 @@
 import * as crypto from 'crypto';
 import { Observable } from 'rxjs';
 
-import { setupDatabase } from './database';
+import { setupDatabase } from '../common/database';
 import { setupQueue } from './queue'
 
 import env from '../common/env';

@@ -8,15 +8,15 @@ const createDb = pgpromise();
 export type ConnectionFactory = () => Promise<pgpromise.IConnected<any>>;
 
 export async function setupDatabase(
-  connectionConfig: any,
+  databaseUrl: string,
   dropExisting: boolean = false
 ): Promise<ConnectionFactory> {
-  let database = await createDb(connectionConfig);
+  let database = await createDb(databaseUrl);
   let connectionFactory = async () =>
-    await database.connect(connectionConfig);
+    await database.connect(databaseUrl);
 
   let conn = await connectionFactory();
-  logger.info(`Connected to database`, connectionConfig);
+  logger.info(`Connected to database`, { databaseUrl: databaseUrl });
 
   if (dropExisting) {
     logger.info(`Dropping existing database`);

@@ -21,11 +21,6 @@ html, body {
     z-index: -1;
 }
 
-blockquote {
-    opacity: 0.87;
-    color: rgb(252, 156, 151);
-}
-
 blockquote header {
     width: 100%;
     text-align: right;
@@ -45,6 +40,9 @@ blockquote header a:hover {
 }
 
 blockquote.slogan {
+    opacity: 0.87;
+    color: rgb(252, 156, 151);
+    box-shadow: 5px 5px 16px 3px rgba(140, 22, 16, 0.6);
     padding: 15px;
     background-color: rgb(170, 52, 46);
 }

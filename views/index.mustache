@@ -17,20 +17,26 @@
           }
         </style>
     </head>
-    <body>
+    <body itemscope itemtype="http://schema.org/Thing">
         <!--[if lt IE 8]>
             <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
 
         <blockquote class="slogan">
+            <meta itemprop="name" content="qoute" />
+            <meta itemprop="url" content="/slogan/{{sloganKey}}" />
+            <meta itemprop="mainEntityOfPage" content="/slogan/{{sloganKey}}" />
+            <meta itemprop="image" content="../assets/{{bg}}" />
             <header>
                 <a class="next" href="/slogan" alt="Random slogan" title="Random slogan">Next</a>
                 <a class="permalink" href="/slogan/{{sloganKey}}" alt="Permalink" title="Permalink">Permalink</a>
                 <a class="about" href="https://github.com/cfiet/glorious-leader-new" alt="About" title="About">?</a>
             </header>
-            <p>{{slogan}}</p>
+            <p itemprop="description">
+                {{slogan}}
+            </p>
             <footer>
-                <cite>Glorious Leader</cite>
+                <cite itemprop="author">Glorious Leader</cite>
             </footer>
         </blockquote>
 

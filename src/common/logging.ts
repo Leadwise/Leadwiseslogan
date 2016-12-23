@@ -1,6 +1,15 @@
+import * as cluster from 'cluster';
 import * as winston from 'winston';
 
 export type Logger = winston.LoggerInstance;
+
+function getWorkerPrefix() {
+  if (cluster.isMaster) {
+    return 'master';
+  } else {
+    return `worker:${cluster.worker.id}`;
+  }
+}
 
 function createLogger (...component: string[]): Logger {
   return new winston.Logger({
@@ -15,7 +24,7 @@ function createLogger (...component: string[]): Logger {
         timestamp: function() {
           return new Date().toISOString();
         },
-        label: component.join('/')
+        label: [getWorkerPrefix()].concat(component).join("/")
       })
     ]
   });

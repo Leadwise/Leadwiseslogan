@@ -3,24 +3,12 @@ import * as os from 'os';
 
 import env from './common/env';
 import createLogger from './common/logging';
+import getWorkersCount from './common/cluster';
 import startGeneratorWorker from './generator';
 import startPersistanceWorker from './persist';
 
 const logger = createLogger('worker');
 
-function getWorkersCount(envVarName) {
-  let setting = process.env[envVarName];
-  let workers = 1;
-  if (setting === 'cpu') {
-    workers = os.cpus.length;
-  } else if (typeof setting !== 'undefined') {
-    let count = parseInt(setting, 10);
-    workers = !isNaN(count) 
-      ? count
-      : workers;
-  }
-  return workers;
-}
 let persistWorkersCount = getWorkersCount(env.PERSIST_WORKERS_NUMBER);
 let generationWorkerCount = getWorkersCount(env.GENERATION_WORKERS_NUMBER);
 

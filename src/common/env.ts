@@ -22,9 +22,12 @@ const env = {
   GENERATION_WORKERS_NUMBER: 'GLEADER_GENERATION_WORKERS',
   WORKER_MODE: 'GLEADER_WORKER_MODE',
   WEB_HTTP_PORT: 'PORT',
+  SKIP_ENVFILE: 'GLEADER_SKIP_ENVFILE'
 };
 
-configureEnvironment();
+if (process.env[env.SKIP_ENVFILE] !== 'true') {
+  configureEnvironment();
+}
 
 if (!process.env[env.SUPRESS_ENV_DUMP]) {
   let currentEnv = Object.keys(env).map(k => 
